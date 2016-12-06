@@ -29,6 +29,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    
     self.dataManager = [[GitHubDataManager alloc] init];
     self.dataManager.delegate = self;
         
@@ -50,6 +52,14 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)setPullRequests:(NSArray *)pullRequests {
+    _pullRequests = pullRequests;
+    
+    if (self.detailViewController.pullRequestItem == nil) {
+        self.detailViewController.pullRequestItem = _pullRequests.firstObject;
+    }
 }
 
 #pragma mark - Data 
@@ -83,14 +93,6 @@
     [self.tableView addSubview:control];
     
     return control;
-}
-
--(void)showWorkingSpinnerWithText:(NSString*)text {
-    
-}
-
--(void)hideWorkingSpinner {
-    
 }
 
 #pragma mark - Segues
@@ -130,11 +132,20 @@
 #pragma mark - GitHubDelegate 
 
 - (void)didDownloadLatestPullRequests:(NSArray *)pullRequests {
+    
+    if (self.refreshControl) {
+        [self.refreshControl endRefreshing];
+    }
+    
     self.pullRequests = pullRequests;
     [self.tableView reloadData];
 }
 
 - (void)failedToGetLatestPullRequests {
+    
+    if (self.refreshControl) {
+        [self.refreshControl endRefreshing];
+    }
     
 }
 

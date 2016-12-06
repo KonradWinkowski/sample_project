@@ -56,7 +56,7 @@
 
 - (void)generateDetailLabel {
     
-    NSCalendar *calendar = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierGregorian];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateFormatter *dateFormatter = [NSDateFormatter new];
     [dateFormatter setDateFormat:@"yyyy-MM-dd'T'HH:mm:ssZZZZZ"];
     
@@ -69,14 +69,10 @@
     
     [dateFormatter setDateStyle:NSDateFormatterShortStyle];
     
-    if (dayComponents.day < 10) {
-        if (dayComponents.day == 1) {
-            [tempString appendString:@" opened 1 day ago by "];
-        } else {
-            [tempString appendString:[NSString stringWithFormat:@" opened %d days ago by ", dayComponents.day]];
-        }
+    if (dayComponents.day == 1) {
+        [tempString appendString:@" opened 1 day ago by "];
     } else {
-        [tempString appendString:[NSString stringWithFormat:@" opened on %@ by ", [dateFormatter stringFromDate:createdDate]]];
+        [tempString appendString:[NSString stringWithFormat:@" opened %d days ago by ", dayComponents.day]];
     }
     
     [tempString appendString:self.pullRequest.userName];

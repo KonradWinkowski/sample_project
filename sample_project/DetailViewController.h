@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class PullRequestItem;
+
 @interface DetailViewController : UIViewController
 
-@property (strong, nonatomic) NSDate *detailItem;
+@property (strong, nonatomic) PullRequestItem *pullRequestItem;
 @property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
 
 @end

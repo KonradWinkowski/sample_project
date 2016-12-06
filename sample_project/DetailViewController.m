@@ -7,6 +7,7 @@
 //
 
 #import "DetailViewController.h"
+#import "PullRequestItem.h"
 
 @interface DetailViewController ()
 
@@ -16,15 +17,16 @@
 
 - (void)configureView {
     // Update the user interface for the detail item.
-    if (self.detailItem) {
-        self.detailDescriptionLabel.text = [self.detailItem description];
-    }
+    if (!self.pullRequestItem) { return; }
+    
+    self.detailDescriptionLabel.text = self.pullRequestItem.title;
 }
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
     [self configureView];
 }
 
@@ -37,9 +39,9 @@
 
 #pragma mark - Managing the detail item
 
-- (void)setDetailItem:(NSDate *)newDetailItem {
-    if (_detailItem != newDetailItem) {
-        _detailItem = newDetailItem;
+- (void)setPullRequestItem:(PullRequestItem *)pullRequestItem {
+    if (_pullRequestItem != pullRequestItem) {
+        _pullRequestItem = pullRequestItem;
         
         // Update the view.
         [self configureView];
