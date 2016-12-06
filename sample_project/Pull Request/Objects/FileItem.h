@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+#define KEMPTYSPACESTRING @"__EMPTY__SPACE_STRING__"
+
 @interface FileItem : NSObject
 
 @property (strong, nonatomic) NSString *fileName;

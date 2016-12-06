@@ -84,6 +84,56 @@
     
     self.origianStrings = [NSArray arrayWithArray:originalTemp];
     self.changedStrings = [NSArray arrayWithArray:changesTemp];
+    
+    [self fillInBlankSpaces];
+}
+
+- (void)fillInBlankSpaces {
+    
+    if (self.origianStrings.count == self.changedStrings.count) {
+        return;
+    }
+    
+    NSMutableArray *original_copy = self.origianStrings.mutableCopy;
+    NSMutableArray *changed_copy = self.changedStrings.mutableCopy;
+    
+    for (int i = 0; i < MAX(self.origianStrings.count, self.changedStrings.count); i ++) {
+        
+        NSString *original_string, *changed_string;
+        
+        if (i < self.changedStrings.count) {
+            changed_string = [self.changedStrings objectAtIndex:i];
+        }
+        
+        if (i < self.origianStrings.count) {
+            original_string = [self.origianStrings objectAtIndex:i];
+        }
+        
+        if (!original_string) {
+            [original_copy insertObject:KEMPTYSPACESTRING atIndex:original_copy.count];
+            break;
+        } else if (!changed_string) {
+            [changed_copy insertObject:KEMPTYSPACESTRING atIndex:changed_copy.count];
+            break;
+        }
+        else if ([original_string hasPrefix:@"-"] && ![changed_string hasPrefix:@"+"]) {
+            if ([changed_string isEqualToString:KEMPTYSPACESTRING] == NO) {
+                [changed_copy insertObject:KEMPTYSPACESTRING atIndex:i];
+                break;
+            }
+        } else if (![original_string hasPrefix:@"-"] && [changed_string hasPrefix:@"+"]) {
+            if ([original_string isEqualToString:KEMPTYSPACESTRING] == NO) {
+                [original_copy insertObject:KEMPTYSPACESTRING atIndex:i];
+                break;
+            }
+        }
+        
+    }
+    
+    self.origianStrings = [NSArray arrayWithArray:original_copy];
+    self.changedStrings = [NSArray arrayWithArray:changed_copy];
+    
+    [self fillInBlankSpaces];
 }
 
 @end
