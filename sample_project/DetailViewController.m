@@ -9,24 +9,20 @@
 #import "DetailViewController.h"
 #import "PullRequestItem.h"
 #import "GitHubDataManager.h"
+#import "WorkingSpinner.h"
 
 @interface DetailViewController () <GitHubDataManagerDelegate>
 
 @property (strong, nonatomic) GitHubDataManager *dataManager;
 
+@property (weak, nonatomic) IBOutlet UIView *workingContainer;
+@property (weak, nonatomic) IBOutlet UIView *workingHolder;
+@property (weak, nonatomic) IBOutlet UILabel *workingLabel;
+@property (weak, nonatomic) IBOutlet WorkingSpinner *workingSpinner;
+
 @end
 
 @implementation DetailViewController
-
-- (void)configureView {
-    // Update the user interface for the detail item.
-    if (!self.pullRequestItem) { return; }
-    
-    self.detailDescriptionLabel.text = self.pullRequestItem.title;
-    
-    [self.dataManager getCommitInfo:self.pullRequestItem.commitsURL];
-}
-
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,6 +30,8 @@
     
     self.dataManager = [[GitHubDataManager alloc] init];
     self.dataManager.delegate = self;
+    
+    self.workingHolder.layer.cornerRadius = 4.0;
     
     [self configureView];
 }
@@ -44,6 +42,32 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)configureView {
+    // Update the user interface for the detail item.
+    if (!self.pullRequestItem) { return; }
+    
+    [self showWorkingPopoverWithTitle:@"Getting Commit Info..."];
+    
+    self.detailDescriptionLabel.text = self.pullRequestItem.title;
+    
+    [self.dataManager getCommitsInfo:self.pullRequestItem.commitsURL];
+}
+
+-(void)showWorkingPopoverWithTitle:(NSString*)text {
+    
+    self.workingLabel.text = text;
+    
+    if (self.workingContainer.hidden) {
+        self.workingContainer.hidden = NO;
+        self.workingSpinner.hidden = NO;
+    }
+    
+}
+
+-(void)hideWorkingPopover {
+    self.workingContainer.hidden = YES;
+    self.workingSpinner.hidden = YES;
+}
 
 #pragma mark - Managing the detail item
 
@@ -63,7 +87,8 @@
 }
 
 - (void)didDownloadLatestCommitsInformation:(NSArray *)commits {
-    
+    NSLog(@"%@", commits);
+    [self hideWorkingPopover];
 }
 
 

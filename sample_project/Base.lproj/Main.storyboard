@@ -46,18 +46,72 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FgX-db-58c">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e8z-qh-TKv">
+                                        <rect key="frame" x="264" y="448" width="240" height="128"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ftn-Ka-VMm" customClass="WorkingSpinner">
+                                                <rect key="frame" x="95" y="20" width="50" height="50"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="50" id="ihA-bU-jqC"/>
+                                                    <constraint firstAttribute="width" secondItem="ftn-Ka-VMm" secondAttribute="height" multiplier="1:1" id="wPd-rq-6rQ"/>
+                                                </constraints>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="outsideLineWidth">
+                                                        <real key="value" value="4"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="insideLineWidth">
+                                                        <real key="value" value="2"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="working...." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vCJ-tH-m6h">
+                                                <rect key="frame" x="77" y="93.5" width="86" height="22.5"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="19"/>
+                                                <color key="textColor" red="0.47660902142524719" green="0.37373736500740051" blue="0.28653344511985779" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.90823972225189209" green="0.92638683319091797" blue="0.9317171573638916" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstItem="ftn-Ka-VMm" firstAttribute="centerX" secondItem="e8z-qh-TKv" secondAttribute="centerX" id="IO3-df-F6f"/>
+                                            <constraint firstAttribute="width" constant="240" id="JGW-Rr-hn1"/>
+                                            <constraint firstAttribute="height" constant="128" id="PwX-Y8-e1l"/>
+                                            <constraint firstItem="vCJ-tH-m6h" firstAttribute="centerX" secondItem="e8z-qh-TKv" secondAttribute="centerX" id="dMZ-p1-eck"/>
+                                            <constraint firstItem="ftn-Ka-VMm" firstAttribute="top" secondItem="e8z-qh-TKv" secondAttribute="top" constant="20" id="mDh-ei-pd8"/>
+                                            <constraint firstAttribute="bottom" secondItem="vCJ-tH-m6h" secondAttribute="bottom" constant="12" id="rmh-i3-59P"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.47660902142524719" green="0.37373736500740051" blue="0.28653344511985779" alpha="0.25" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="e8z-qh-TKv" firstAttribute="centerX" secondItem="FgX-db-58c" secondAttribute="centerX" id="WIG-DX-FYq"/>
+                                    <constraint firstItem="e8z-qh-TKv" firstAttribute="centerY" secondItem="FgX-db-58c" secondAttribute="centerY" id="hjR-Ch-Ak2"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="0XM-y9-sOw" firstAttribute="leading" secondItem="svH-Pt-448" secondAttribute="leading" constant="20" symbolic="YES" id="Tsc-yG-G1q"/>
+                            <constraint firstItem="FgX-db-58c" firstAttribute="height" secondItem="svH-Pt-448" secondAttribute="height" id="dib-dh-AtB"/>
                             <constraint firstItem="0XM-y9-sOw" firstAttribute="centerY" secondItem="svH-Pt-448" secondAttribute="centerY" id="jWN-iV-94e"/>
+                            <constraint firstItem="FgX-db-58c" firstAttribute="width" secondItem="svH-Pt-448" secondAttribute="width" id="n94-Ac-fcK"/>
                             <constraint firstAttribute="trailing" secondItem="0XM-y9-sOw" secondAttribute="trailing" constant="20" symbolic="YES" id="tHV-ZD-HQj"/>
+                            <constraint firstItem="FgX-db-58c" firstAttribute="centerY" secondItem="svH-Pt-448" secondAttribute="centerY" id="w7q-pa-Nht"/>
+                            <constraint firstItem="FgX-db-58c" firstAttribute="centerX" secondItem="svH-Pt-448" secondAttribute="centerX" id="ziY-pp-vP3"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Changes" id="mOI-FS-AaM"/>
                     <connections>
                         <outlet property="detailDescriptionLabel" destination="0XM-y9-sOw" id="deQ-Na-JPF"/>
+                        <outlet property="workingContainer" destination="FgX-db-58c" id="nx8-WO-9Tj"/>
+                        <outlet property="workingHolder" destination="e8z-qh-TKv" id="oSL-9S-fbI"/>
+                        <outlet property="workingLabel" destination="vCJ-tH-m6h" id="nQf-f6-VPK"/>
+                        <outlet property="workingSpinner" destination="ftn-Ka-VMm" id="Z7E-iK-O2p"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FJe-Yq-33r" sceneMemberID="firstResponder"/>

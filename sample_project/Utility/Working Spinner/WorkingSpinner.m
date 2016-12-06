@@ -29,13 +29,17 @@
     return self;
 }
 
--(void)layoutSubviews {
-    [super layoutSubviews];
+- (void)awakeFromNib {
+    [super awakeFromNib];
     [self internalInit];
 }
 
+-(void)layoutSubviews {
+    [super layoutSubviews];
+}
+
 -(void)internalInit
-{
+{    
     self.backgroundColor = [UIColor clearColor];
     
     outsideLine = [CAShapeLayer layer];
@@ -65,8 +69,8 @@
     outsideLine.fillColor = [UIColor clearColor].CGColor;
     insdieLine.fillColor = [UIColor clearColor].CGColor;
     
-    outsideLine.strokeColor = [UIColor flatLimeColor].CGColor;
-    insdieLine.strokeColor = [UIColor flatBlueColor].CGColor;
+    outsideLine.strokeColor = [UIColor flatCoffeeColor].CGColor;
+    insdieLine.strokeColor = [UIColor flatYellowColor].CGColor;
     
     outsideLine.lineWidth = self.outsideLineWidth;
     insdieLine.lineWidth = self.insideLineWidth;

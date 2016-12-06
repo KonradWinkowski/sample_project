@@ -24,7 +24,7 @@
  * Goes out to the GitHub REST API and grabs the commit info for the provided URL 
  * Will call delegate methods depending on success or failure
  */
--(void)getCommitInfo:(NSURL*)commitURL;
+-(void)getCommitsInfo:(NSURL*)commitsURL;
 
 @end
 

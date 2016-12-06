@@ -10,7 +10,7 @@
 
 @interface Commit : NSObject
 
-
+@property (strong, nonatomic) NSArray *commitData;
 
 /*
  * Convinence init for a commit to populate all of the required fields from the data provided.

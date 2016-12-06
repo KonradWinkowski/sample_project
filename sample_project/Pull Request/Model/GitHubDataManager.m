@@ -40,12 +40,68 @@
 }
 
 -(void)finishedReceivingCommitInformation:(NSArray*)data {
+    
     if (self.delegate && [self.delegate respondsToSelector:@selector(didDownloadLatestCommitsInformation:)]) {
         [self.delegate didDownloadLatestCommitsInformation:data];
     }
+    
 }
 
--(void)getCommitInfo:(NSURL*)commitURL {
+
+-(void)downloadCommitInfoFor:(NSArray*)data toCommits:(NSMutableArray*)commits {
+    
+    if (data.count == 0) {
+        [self finishedReceivingCommitInformation:commits];
+        return;
+    }
+    
+    NSURL *commitURL = data.firstObject;
+    __weak typeof(self) weakself = self;
+    
+    [self getFullCommitItemInfoForURL:commitURL withCompletion:^(BOOL result, Commit *item) {
+        
+        if (result) {
+            NSMutableArray *newData = [data mutableCopy];
+            [newData removeObjectAtIndex:0];
+            
+            [commits addObject:item];
+            
+            [weakself downloadCommitInfoFor:[NSArray arrayWithArray:newData] toCommits:commits];
+        } else {
+            [weakself failedToGetData];
+        }
+        
+    }];
+}
+
+-(void)getFullCommitItemInfoForURL:(NSURL*)commitURL withCompletion:(void (^)(BOOL result, Commit *item))completion{
+        
+    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+    
+    NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: defaultConfigObject delegate: self delegateQueue: [NSOperationQueue mainQueue]];
+    
+    NSURLSessionDataTask * dataTask = [defaultSession dataTaskWithURL:commitURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
+    {
+        NSLog(@"%@", response);
+        if (error) {
+            completion(NO, nil);
+        } else {
+            
+            NSError *error;
+            NSDictionary *commitInfo = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+            
+            if (error) {
+                completion(NO, nil);
+            } else {
+                completion(YES, [Commit commitFromData:commitInfo]);
+            }
+        }
+    }];
+    
+    [dataTask resume];
+}
+
+-(void)getCommitsInfo:(NSURL*)commitsURL {
     
     NSAssert(self.delegate, @"A Delegate is Required for this object!");
     
@@ -55,7 +111,7 @@
     
     NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: defaultConfigObject delegate: self delegateQueue: [NSOperationQueue mainQueue]];
     
-    NSURLSessionDataTask * dataTask = [defaultSession dataTaskWithURL:commitURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
+    NSURLSessionDataTask * dataTask = [defaultSession dataTaskWithURL:commitsURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
     {
         NSLog(@"%@", response);
         if (error) {
@@ -116,10 +172,10 @@
     NSMutableArray *temp = [NSMutableArray new];
     
     for (NSDictionary *item in items) {
-        [temp addObject:[Commit commitFromData:item]];
+        [temp addObject:[NSURL URLWithString:[item objectForKey:@"url"]]];
     }
     
-    [self finishedReceivingCommitInformation:[NSArray arrayWithArray:temp]];
+    [self downloadCommitInfoFor:[NSArray arrayWithArray:temp] toCommits:[NSMutableArray new]];
     
 }
 
