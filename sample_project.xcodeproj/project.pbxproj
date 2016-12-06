@@ -22,6 +22,7 @@
 		FC7CC3FE1DF604870056F710 /* CustomSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC7CC3FD1DF604870056F710 /* CustomSplitViewController.m */; };
 		FC7CC4021DF604B80056F710 /* CustomNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC7CC4011DF604B80056F710 /* CustomNavigationViewController.m */; };
 		FC7CC4061DF607A90056F710 /* GitHubDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC7CC4051DF607A90056F710 /* GitHubDataManager.m */; };
+		FC7CC4091DF6FE4F0056F710 /* FileItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FC7CC4081DF6FE4F0056F710 /* FileItem.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -54,6 +55,8 @@
 		FC7CC4011DF604B80056F710 /* CustomNavigationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomNavigationViewController.m; path = Utility/CustomNavigationController/CustomNavigationViewController.m; sourceTree = "<group>"; };
 		FC7CC4041DF607A90056F710 /* GitHubDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GitHubDataManager.h; path = "Pull Request/Model/GitHubDataManager.h"; sourceTree = "<group>"; };
 		FC7CC4051DF607A90056F710 /* GitHubDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GitHubDataManager.m; path = "Pull Request/Model/GitHubDataManager.m"; sourceTree = "<group>"; };
+		FC7CC4071DF6FE4F0056F710 /* FileItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileItem.h; path = "Pull Request/Objects/FileItem.h"; sourceTree = "<group>"; };
+		FC7CC4081DF6FE4F0056F710 /* FileItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FileItem.m; path = "Pull Request/Objects/FileItem.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +86,8 @@
 				71FF215D1DF641CC007BA701 /* PullRequestItem.m */,
 				71FF21851DF6563A007BA701 /* Commit.h */,
 				71FF21861DF6563A007BA701 /* Commit.m */,
+				FC7CC4071DF6FE4F0056F710 /* FileItem.h */,
+				FC7CC4081DF6FE4F0056F710 /* FileItem.m */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -334,6 +339,7 @@
 				FC7CC3DE1DF601440056F710 /* MasterViewController.m in Sources */,
 				FC7CC4021DF604B80056F710 /* CustomNavigationViewController.m in Sources */,
 				71FF21871DF6563A007BA701 /* Commit.m in Sources */,
+				FC7CC4091DF6FE4F0056F710 /* FileItem.m in Sources */,
 				FC7CC3FE1DF604870056F710 /* CustomSplitViewController.m in Sources */,
 				FC7CC4061DF607A90056F710 /* GitHubDataManager.m in Sources */,
 				71FF215E1DF641CC007BA701 /* PullRequestItem.m in Sources */,

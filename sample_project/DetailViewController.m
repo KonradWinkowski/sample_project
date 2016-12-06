@@ -17,6 +17,7 @@
 
 @property (weak, nonatomic) IBOutlet UIView *workingContainer;
 @property (weak, nonatomic) IBOutlet UIView *workingHolder;
+@property (weak, nonatomic) IBOutlet UIView *workingShadow;
 @property (weak, nonatomic) IBOutlet UILabel *workingLabel;
 @property (weak, nonatomic) IBOutlet WorkingSpinner *workingSpinner;
 
@@ -31,6 +32,7 @@
     self.dataManager = [[GitHubDataManager alloc] init];
     self.dataManager.delegate = self;
     
+    self.workingShadow.layer.cornerRadius = 4.0;
     self.workingHolder.layer.cornerRadius = 4.0;
     
     [self configureView];
@@ -50,7 +52,7 @@
     
     self.detailDescriptionLabel.text = self.pullRequestItem.title;
     
-    [self.dataManager getCommitsInfo:self.pullRequestItem.commitsURL];
+    [self.dataManager getFilesInfo:self.pullRequestItem.filesURL];
 }
 
 -(void)showWorkingPopoverWithTitle:(NSString*)text {
@@ -86,7 +88,7 @@
     
 }
 
-- (void)didDownloadLatestCommitsInformation:(NSArray *)commits {
+- (void)didDownloadLatestFilesInformation:(NSArray *)commits {
     NSLog(@"%@", commits);
     [self hideWorkingPopover];
 }

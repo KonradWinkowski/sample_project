@@ -17,7 +17,7 @@
 #define kLoginKey           @"login"
 
 #define kLinksKey           @"_links"
-#define kCommitsKey         @"commits"
+#define kSelfKey            @"self"
 #define kHrefKey            @"href"
 
 @implementation PullRequestItem
@@ -65,11 +65,13 @@
     
     if (!linkInfo) return;
     
-    NSDictionary *commitInfo = [linkInfo objectForKey:kCommitsKey];
+    NSDictionary *selfInfo = [linkInfo objectForKey:kSelfKey];
     
-    if (!commitInfo) return;
+    if (!selfInfo) return;
     
-    self.commitsURL = [NSURL URLWithString:[commitInfo objectForKey:kHrefKey]];
+    NSString *selfURL = [selfInfo objectForKey:kHrefKey];
+    
+    self.filesURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/files", selfURL]];
 }
 
 -(void)parseOutStateInfo:(NSDictionary*)data {

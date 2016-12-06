@@ -14,7 +14,7 @@
         <scene sceneID="pY4-Hu-kfo">
             <objects>
                 <navigationController title="Master" id="RMx-3f-FxP" customClass="CustomNavigationViewController" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translucent="NO" id="Pmd-2v-anx">
+                    <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translucent="NO" id="Pmd-2v-anx">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.47660902142524719" green="0.37373736500740051" blue="0.28653344511985779" alpha="1" colorSpace="calibratedRGB"/>
@@ -49,6 +49,14 @@
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FgX-db-58c">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ArF-ft-zdN">
+                                        <rect key="frame" x="268" y="452" width="240" height="128"/>
+                                        <color key="backgroundColor" red="0.74117648601531982" green="0.76470589637756348" blue="0.78039216995239258" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="128" id="Mdu-nm-1Hu"/>
+                                            <constraint firstAttribute="width" constant="240" id="pKJ-YM-1d8"/>
+                                        </constraints>
+                                    </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e8z-qh-TKv">
                                         <rect key="frame" x="264" y="448" width="240" height="128"/>
                                         <subviews>
@@ -90,6 +98,8 @@
                                 <constraints>
                                     <constraint firstItem="e8z-qh-TKv" firstAttribute="centerX" secondItem="FgX-db-58c" secondAttribute="centerX" id="WIG-DX-FYq"/>
                                     <constraint firstItem="e8z-qh-TKv" firstAttribute="centerY" secondItem="FgX-db-58c" secondAttribute="centerY" id="hjR-Ch-Ak2"/>
+                                    <constraint firstItem="ArF-ft-zdN" firstAttribute="centerX" secondItem="FgX-db-58c" secondAttribute="centerX" constant="4" id="tMg-Og-U5g"/>
+                                    <constraint firstItem="ArF-ft-zdN" firstAttribute="centerY" secondItem="FgX-db-58c" secondAttribute="centerY" constant="4" id="tRa-Uk-i4T"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -111,6 +121,7 @@
                         <outlet property="workingContainer" destination="FgX-db-58c" id="nx8-WO-9Tj"/>
                         <outlet property="workingHolder" destination="e8z-qh-TKv" id="oSL-9S-fbI"/>
                         <outlet property="workingLabel" destination="vCJ-tH-m6h" id="nQf-f6-VPK"/>
+                        <outlet property="workingShadow" destination="ArF-ft-zdN" id="YZG-tY-o53"/>
                         <outlet property="workingSpinner" destination="ftn-Ka-VMm" id="Z7E-iK-O2p"/>
                     </connections>
                 </viewController>
@@ -240,7 +251,7 @@
         <scene sceneID="r7l-gg-dq7">
             <objects>
                 <navigationController id="vC3-pB-5Vb" customClass="CustomNavigationViewController" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" id="DjV-YW-jjY">
+                    <navigationBar key="navigationBar" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="DjV-YW-jjY">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.47660902142524719" green="0.37373736500740051" blue="0.28653344511985779" alpha="1" colorSpace="calibratedRGB"/>

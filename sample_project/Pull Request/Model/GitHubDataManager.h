@@ -21,10 +21,10 @@
 -(void)updatePullRequests;
 
 /*
- * Goes out to the GitHub REST API and grabs the commit info for the provided URL 
+ * Goes out to the GitHub REST API and grabs the files info for the provided URL 
  * Will call delegate methods depending on success or failure
  */
--(void)getCommitsInfo:(NSURL*)commitsURL;
+-(void)getFilesInfo:(NSURL*)filesURL;
 
 @end
 
@@ -37,9 +37,9 @@
 -(void)didDownloadLatestPullRequests:(NSArray*)pullRequests;
 
 /*
- * Gets called when the web request is done and data is parsed into an Array of Commits
+ * Gets called when the web request is done and data is parsed into an Array of FileItems
  */
--(void)didDownloadLatestCommitsInformation:(NSArray*)commits;
+-(void)didDownloadLatestFilesInformation:(NSArray*)commits;
 
 @required
 /*

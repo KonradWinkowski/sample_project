@@ -8,7 +8,7 @@
 
 #import "GitHubDataManager.h"
 #import "PullRequestItem.h"
-#import "Commit.h"
+#import "FileItem.h"
 
 #define kPullRequestsURL @"https://api.github.com/repos/magicalpanda/MagicalRecord/pulls?state=all"
 
@@ -39,69 +39,68 @@
     }
 }
 
--(void)finishedReceivingCommitInformation:(NSArray*)data {
+-(void)finishedReceivingFilesData:(NSArray*)data {
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(didDownloadLatestCommitsInformation:)]) {
-        [self.delegate didDownloadLatestCommitsInformation:data];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didDownloadLatestFilesInformation:)]) {
+        [self.delegate didDownloadLatestFilesInformation:data];
     }
     
 }
 
+//-(void)downloadCommitInfoFor:(NSArray*)data toCommits:(NSMutableArray*)commits {
+//    
+//    if (data.count == 0) {
+//        [self finishedReceivingCommitInformation:commits];
+//        return;
+//    }
+//    
+//    NSURL *commitURL = data.firstObject;
+//    __weak typeof(self) weakself = self;
+//    
+//    [self getFullCommitItemInfoForURL:commitURL withCompletion:^(BOOL result, Commit *item) {
+//        
+//        if (result) {
+//            NSMutableArray *newData = [data mutableCopy];
+//            [newData removeObjectAtIndex:0];
+//            
+//            [commits addObject:item];
+//            
+//            [weakself downloadCommitInfoFor:[NSArray arrayWithArray:newData] toCommits:commits];
+//        } else {
+//            [weakself failedToGetData];
+//        }
+//        
+//    }];
+//}
 
--(void)downloadCommitInfoFor:(NSArray*)data toCommits:(NSMutableArray*)commits {
-    
-    if (data.count == 0) {
-        [self finishedReceivingCommitInformation:commits];
-        return;
-    }
-    
-    NSURL *commitURL = data.firstObject;
-    __weak typeof(self) weakself = self;
-    
-    [self getFullCommitItemInfoForURL:commitURL withCompletion:^(BOOL result, Commit *item) {
-        
-        if (result) {
-            NSMutableArray *newData = [data mutableCopy];
-            [newData removeObjectAtIndex:0];
-            
-            [commits addObject:item];
-            
-            [weakself downloadCommitInfoFor:[NSArray arrayWithArray:newData] toCommits:commits];
-        } else {
-            [weakself failedToGetData];
-        }
-        
-    }];
-}
+//-(void)getFullCommitItemInfoForURL:(NSURL*)commitURL withCompletion:(void (^)(BOOL result, Commit *item))completion{
+//        
+//    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+//    
+//    NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: defaultConfigObject delegate: self delegateQueue: [NSOperationQueue mainQueue]];
+//    
+//    NSURLSessionDataTask * dataTask = [defaultSession dataTaskWithURL:commitURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
+//    {
+//        NSLog(@"%@", response);
+//        if (error) {
+//            completion(NO, nil);
+//        } else {
+//            
+//            NSError *error;
+//            NSDictionary *commitInfo = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+//            
+//            if (error) {
+//                completion(NO, nil);
+//            } else {
+//                completion(YES, [Commit commitFromData:commitInfo]);
+//            }
+//        }
+//    }];
+//    
+//    [dataTask resume];
+//}
 
--(void)getFullCommitItemInfoForURL:(NSURL*)commitURL withCompletion:(void (^)(BOOL result, Commit *item))completion{
-        
-    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
-    
-    NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: defaultConfigObject delegate: self delegateQueue: [NSOperationQueue mainQueue]];
-    
-    NSURLSessionDataTask * dataTask = [defaultSession dataTaskWithURL:commitURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
-    {
-        NSLog(@"%@", response);
-        if (error) {
-            completion(NO, nil);
-        } else {
-            
-            NSError *error;
-            NSDictionary *commitInfo = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
-            
-            if (error) {
-                completion(NO, nil);
-            } else {
-                completion(YES, [Commit commitFromData:commitInfo]);
-            }
-        }
-    }];
-    
-    [dataTask resume];
-}
-
--(void)getCommitsInfo:(NSURL*)commitsURL {
+-(void)getFilesInfo:(NSURL*)filesURL {
     
     NSAssert(self.delegate, @"A Delegate is Required for this object!");
     
@@ -111,13 +110,13 @@
     
     NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: defaultConfigObject delegate: self delegateQueue: [NSOperationQueue mainQueue]];
     
-    NSURLSessionDataTask * dataTask = [defaultSession dataTaskWithURL:commitsURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
+    NSURLSessionDataTask * dataTask = [defaultSession dataTaskWithURL:filesURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
     {
         NSLog(@"%@", response);
         if (error) {
             [weakself failedToGetData];
         } else {
-            [weakself parseArrayOfRawCommits:[weakself parseResponsData:data]];
+            [weakself parseArrayOfRawFiles:[weakself parseResponsData:data]];
         }
     }];
     
@@ -167,19 +166,35 @@
     return items;
 }
 
--(void)parseArrayOfRawCommits:(NSArray*)items {
+-(void)parseArrayOfRawFiles:(NSArray*)items {
+    
+    if (!items) { return; }
     
     NSMutableArray *temp = [NSMutableArray new];
     
     for (NSDictionary *item in items) {
-        [temp addObject:[NSURL URLWithString:[item objectForKey:@"url"]]];
+        [temp addObject:[FileItem itemWithData:item]];
     }
     
-    [self downloadCommitInfoFor:[NSArray arrayWithArray:temp] toCommits:[NSMutableArray new]];
+    [self finishedReceivingFilesData:[NSArray arrayWithArray:temp]];
     
 }
 
+//-(void)parseArrayOfRawCommits:(NSArray*)items {
+//    
+//    NSMutableArray *temp = [NSMutableArray new];
+//    
+//    for (NSDictionary *item in items) {
+//        [temp addObject:[NSURL URLWithString:[item objectForKey:@"url"]]];
+//    }
+//    
+//    [self downloadCommitInfoFor:[NSArray arrayWithArray:temp] toCommits:[NSMutableArray new]];
+//    
+//}
+
 -(void)parseArrayOfRawItems:(NSArray*)items {
+    
+    if (!items) { return; }
     
     NSMutableArray *temp = [NSMutableArray new];
     

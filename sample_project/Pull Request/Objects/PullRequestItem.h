@@ -22,7 +22,7 @@ typedef NS_ENUM(NSUInteger, Request_State) {
 @property (strong, nonatomic) NSString *userName;
 @property (strong, nonatomic) NSString *created_date;
 
-@property (strong, nonatomic) NSURL *commitsURL;
+@property (strong, nonatomic) NSURL *filesURL;
 
 /*
  * Convinence init for a pull request item to populate all of the required fields from the data provided.
