@@ -10,7 +10,7 @@
 #import "PullRequestItem.h"
 #import "Commit.h"
 
-#define kPullRequestsURL @"https://api.github.com/repos/magicalpanda/MagicalRecord/pulls"
+#define kPullRequestsURL @"https://api.github.com/repos/magicalpanda/MagicalRecord/pulls?state=all"
 
 @interface GitHubDataManager() <NSURLSessionDelegate>
 
