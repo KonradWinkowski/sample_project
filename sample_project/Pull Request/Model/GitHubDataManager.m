@@ -8,6 +8,7 @@
 
 #import "GitHubDataManager.h"
 #import "PullRequestItem.h"
+#import "Commit.h"
 
 #define kPullRequestsURL @"https://api.github.com/repos/magicalpanda/MagicalRecord/pulls"
 
@@ -32,10 +33,40 @@
     }
 }
 
--(void)finishedReceivingData:(NSArray*)data {
-    if (self.delegate) {
+-(void)finishedReceivingPullRequestData:(NSArray*)data {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didDownloadLatestPullRequests:)]) {
         [self.delegate didDownloadLatestPullRequests:data];
     }
+}
+
+-(void)finishedReceivingCommitInformation:(NSArray*)data {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didDownloadLatestCommitsInformation:)]) {
+        [self.delegate didDownloadLatestCommitsInformation:data];
+    }
+}
+
+-(void)getCommitInfo:(NSURL*)commitURL {
+    
+    NSAssert(self.delegate, @"A Delegate is Required for this object!");
+    
+    __weak typeof(self) weakself = self;
+    
+    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
+    
+    NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: defaultConfigObject delegate: self delegateQueue: [NSOperationQueue mainQueue]];
+    
+    NSURLSessionDataTask * dataTask = [defaultSession dataTaskWithURL:commitURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
+    {
+        NSLog(@"%@", response);
+        if (error) {
+            [weakself failedToGetData];
+        } else {
+            [weakself parseArrayOfRawCommits:[weakself parseResponsData:data]];
+        }
+    }];
+    
+    [dataTask resume];
+    
 }
 
 -(void)updatePullRequests {
@@ -59,7 +90,7 @@
         if (error) {
             [weakself failedToGetData];
         } else {
-            [weakself parseResponsData:data];
+            [weakself parseArrayOfRawItems:[weakself parseResponsData:data]];
         }
     }];
     
@@ -67,17 +98,29 @@
     
 }
 
--(void)parseResponsData:(NSData*)data {
+-(NSArray*)parseResponsData:(NSData*)data {
     
     NSError *error;
     NSArray *items = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
     
     if (error) {
         [self failedToGetData];
-        return;
+        return nil;
     }
     
-    [self parseArrayOfRawItems:items];
+    return items;
+}
+
+-(void)parseArrayOfRawCommits:(NSArray*)items {
+    
+    NSMutableArray *temp = [NSMutableArray new];
+    
+    for (NSDictionary *item in items) {
+        [temp addObject:[Commit commitFromData:item]];
+    }
+    
+    [self finishedReceivingCommitInformation:[NSArray arrayWithArray:temp]];
+    
 }
 
 -(void)parseArrayOfRawItems:(NSArray*)items {
@@ -88,7 +131,7 @@
         [temp addObject:[PullRequestItem itemFromInfo:item]];
     }
     
-    [self finishedReceivingData:[NSArray arrayWithArray:temp]];
+    [self finishedReceivingPullRequestData:[NSArray arrayWithArray:temp]];
     
 }
 

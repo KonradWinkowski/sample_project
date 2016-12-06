@@ -16,20 +16,32 @@
 
 /*
  * Goes out to the GitHub REST API and grabs the latest Pull Requests for 'MagicalRecord'
- * Will call delegate methods depending on succes or failure
+ * Will call delegate methods depending on success or failure
  */
 -(void)updatePullRequests;
+
+/*
+ * Goes out to the GitHub REST API and grabs the commit info for the provided URL 
+ * Will call delegate methods depending on success or failure
+ */
+-(void)getCommitInfo:(NSURL*)commitURL;
 
 @end
 
 @protocol GitHubDataManagerDelegate <NSObject>
 
-@required
+@optional
 /*
  * Gets called when the web request is done and data is parsed into an Array of PullRequestItems
  */
 -(void)didDownloadLatestPullRequests:(NSArray*)pullRequests;
 
+/*
+ * Gets called when the web request is done and data is parsed into an Array of Commits
+ */
+-(void)didDownloadLatestCommitsInformation:(NSArray*)commits;
+
+@required
 /*
  * Gets called when any error occurs. Delegates should inform UI that something went wrong....
  */

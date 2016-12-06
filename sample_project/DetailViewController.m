@@ -8,8 +8,11 @@
 
 #import "DetailViewController.h"
 #import "PullRequestItem.h"
+#import "GitHubDataManager.h"
 
-@interface DetailViewController ()
+@interface DetailViewController () <GitHubDataManagerDelegate>
+
+@property (strong, nonatomic) GitHubDataManager *dataManager;
 
 @end
 
@@ -20,12 +23,17 @@
     if (!self.pullRequestItem) { return; }
     
     self.detailDescriptionLabel.text = self.pullRequestItem.title;
+    
+    [self.dataManager getCommitInfo:self.pullRequestItem.commitsURL];
 }
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    
+    self.dataManager = [[GitHubDataManager alloc] init];
+    self.dataManager.delegate = self;
     
     [self configureView];
 }
@@ -46,6 +54,16 @@
         // Update the view.
         [self configureView];
     }
+}
+
+#pragma mark - Git Hub Data Manager 
+
+- (void)failedToGetLatestPullRequests {
+    
+}
+
+- (void)didDownloadLatestCommitsInformation:(NSArray *)commits {
+    
 }
 
 

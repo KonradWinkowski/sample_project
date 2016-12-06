@@ -16,6 +16,7 @@
 #define kUserKey            @"user"
 #define kLoginKey           @"login"
 
+#define kLinksKey           @"_links"
 #define kCommitsKey         @"commits"
 #define kHrefKey            @"href"
 
@@ -59,11 +60,16 @@
 }
 
 -(void)parseOutCommitURL:(NSDictionary*)data {
-    NSDictionary *commitInfo = [data objectForKey:kCommitsKey];
+    
+    NSDictionary *linkInfo = [data objectForKey:kLinksKey];
+    
+    if (!linkInfo) return;
+    
+    NSDictionary *commitInfo = [linkInfo objectForKey:kCommitsKey];
     
     if (!commitInfo) return;
     
-    self.commitsURL = [commitInfo objectForKey:kHrefKey];
+    self.commitsURL = [NSURL URLWithString:[commitInfo objectForKey:kHrefKey]];
 }
 
 -(void)parseOutStateInfo:(NSDictionary*)data {
