@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		128DE776863E9676FD29C863 /* Pods_sample_project.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C2F20C17D15B4C2508B0EDC3 /* Pods_sample_project.framework */; };
+		71FF215E1DF641CC007BA701 /* PullRequestItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FF215D1DF641CC007BA701 /* PullRequestItem.m */; };
 		FC7CC3D81DF601440056F710 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = FC7CC3D71DF601440056F710 /* main.m */; };
 		FC7CC3DB1DF601440056F710 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = FC7CC3DA1DF601440056F710 /* AppDelegate.m */; };
 		FC7CC3DE1DF601440056F710 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC7CC3DD1DF601440056F710 /* MasterViewController.m */; };
@@ -23,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		71FF215C1DF641CC007BA701 /* PullRequestItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PullRequestItem.h; path = "Pull Request/Objects/PullRequestItem.h"; sourceTree = "<group>"; };
+		71FF215D1DF641CC007BA701 /* PullRequestItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PullRequestItem.m; path = "Pull Request/Objects/PullRequestItem.m"; sourceTree = "<group>"; };
 		B1771BBC4C48167F6975573C /* Pods-sample_project.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample_project.release.xcconfig"; path = "Pods/Target Support Files/Pods-sample_project/Pods-sample_project.release.xcconfig"; sourceTree = "<group>"; };
 		C2F20C17D15B4C2508B0EDC3 /* Pods_sample_project.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_sample_project.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB73F0612D36041DCE32D6E5 /* Pods-sample_project.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-sample_project.debug.xcconfig"; path = "Pods/Target Support Files/Pods-sample_project/Pods-sample_project.debug.xcconfig"; sourceTree = "<group>"; };
@@ -68,6 +71,15 @@
 				C2F20C17D15B4C2508B0EDC3 /* Pods_sample_project.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		71FF21551DF64172007BA701 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				71FF215C1DF641CC007BA701 /* PullRequestItem.h */,
+				71FF215D1DF641CC007BA701 /* PullRequestItem.m */,
+			);
+			name = Objects;
 			sourceTree = "<group>";
 		};
 		9EEBBFE4DB905FCA4361E044 /* Pods */ = {
@@ -128,6 +140,7 @@
 		FC7CC3F11DF601820056F710 /* Pull Request */ = {
 			isa = PBXGroup;
 			children = (
+				71FF21551DF64172007BA701 /* Objects */,
 				FC7CC4031DF6077C0056F710 /* Model */,
 				FC7CC3F21DF6018B0056F710 /* Pull Request Cell  */,
 			);
@@ -317,6 +330,7 @@
 				FC7CC4021DF604B80056F710 /* CustomNavigationViewController.m in Sources */,
 				FC7CC3FE1DF604870056F710 /* CustomSplitViewController.m in Sources */,
 				FC7CC4061DF607A90056F710 /* GitHubDataManager.m in Sources */,
+				71FF215E1DF641CC007BA701 /* PullRequestItem.m in Sources */,
 				FC7CC3F51DF601C20056F710 /* PullRequestTableViewCell.m in Sources */,
 				FC7CC3FA1DF6020D0056F710 /* WorkingSpinner.m in Sources */,
 				FC7CC3D81DF601440056F710 /* main.m in Sources */,
