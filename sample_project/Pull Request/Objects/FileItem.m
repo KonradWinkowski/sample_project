@@ -62,7 +62,17 @@
         
         NSString *stringToValidate = [self.origianStrings objectAtIndex:i];
         
-        if ([stringToValidate isEqualToString:KEMPTYSPACESTRING] == NO) {
+        if ([stringToValidate hasPrefix:@"@@"]) {
+            NSArray *components = [stringToValidate componentsSeparatedByString:@" "];
+            
+            if (components.count == 0) { continue; }
+            
+            int skipValue = [self getLineFumberFromComponents:[components objectAtIndex:1]];
+            
+            originalStart = skipValue;
+            [originalNumbersTemp addObject:@" "];
+            
+        } else if ([stringToValidate isEqualToString:KEMPTYSPACESTRING] == NO) {
             [originalNumbersTemp addObject:[NSString stringWithFormat:@"%d", originalStart]];
             originalStart++;
         } else {
@@ -81,7 +91,17 @@
         
         NSString *stringToValidate = [self.changedStrings objectAtIndex:i];
         
-        if ([stringToValidate isEqualToString:KEMPTYSPACESTRING] == NO) {
+        if ([stringToValidate hasPrefix:@"@@"]) {
+            NSArray *components = [stringToValidate componentsSeparatedByString:@" "];
+            
+            if (components.count == 0) { continue; }
+            
+            int skipValue = [self getLineFumberFromComponents:[components objectAtIndex:2]];
+            
+            changedStart = skipValue;
+            [changedNumbersTemp addObject:@" "];
+            
+        } else if ([stringToValidate isEqualToString:KEMPTYSPACESTRING] == NO) {
             [changedNumbersTemp addObject:[NSString stringWithFormat:@"%d", changedStart]];
             changedStart++;
         } else {
