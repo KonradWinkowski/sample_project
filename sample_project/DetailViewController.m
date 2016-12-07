@@ -176,6 +176,9 @@
         cell.changedLabel.text = changedText;
     }
     
+    cell.originalLineNumberLabel.text = [item.originalStartingLineStrings objectAtIndex:indexPath.row];
+    cell.changedLineNumberLabel.text = [item.changedStartingLineStrings objectAtIndex:indexPath.row];
+    
     return cell;
 }
 

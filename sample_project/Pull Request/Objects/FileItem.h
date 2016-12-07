@@ -23,6 +23,8 @@
 @property (assign, nonatomic) int deletions;
 @property (assign, nonatomic) int changes;
 
+@property (strong, nonatomic) NSArray *originalStartingLineStrings;
+@property (strong, nonatomic) NSArray *changedStartingLineStrings;
 @property (strong, nonatomic) NSArray *origianStrings;
 @property (strong, nonatomic) NSArray *changedStrings;
 

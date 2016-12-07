@@ -29,6 +29,8 @@
         [self parseOutBaseInfo:data];
         
         [self generateStringData];
+        
+        [self generateLineNumbers];
     }
     return self;
 }
@@ -46,19 +48,60 @@
     
 }
 
+-(void)generateLineNumbers {
+    
+    NSArray *components = [self.changesInfo componentsSeparatedByString:@" "];
+    
+    if (components.count == 0) { return; }
+    
+    int originalStart = [self getLineFumberFromComponents:[components objectAtIndex:1]];
+    
+    NSMutableArray *originalNumbersTemp = [NSMutableArray new];
+    
+    for (int i = 0; i < self.origianStrings.count; i++) {
+        
+        NSString *stringToValidate = [self.origianStrings objectAtIndex:i];
+        
+        if ([stringToValidate isEqualToString:KEMPTYSPACESTRING] == NO) {
+            [originalNumbersTemp addObject:[NSString stringWithFormat:@"%d", originalStart]];
+            originalStart++;
+        } else {
+            [originalNumbersTemp addObject:@" "];
+        }
+        
+    }
+    
+    self.originalStartingLineStrings = [NSArray arrayWithArray:originalNumbersTemp];
+    
+    int changedStart = [self getLineFumberFromComponents:[components objectAtIndex:2]];
+    
+    NSMutableArray *changedNumbersTemp = [NSMutableArray new];
+    
+    for (int i = 0; i < self.changedStrings.count; i++) {
+        
+        NSString *stringToValidate = [self.changedStrings objectAtIndex:i];
+        
+        if ([stringToValidate isEqualToString:KEMPTYSPACESTRING] == NO) {
+            [changedNumbersTemp addObject:[NSString stringWithFormat:@"%d", changedStart]];
+            changedStart++;
+        } else {
+            [changedNumbersTemp addObject:@" "];
+        }
+        
+    }
+    
+    self.changedStartingLineStrings = [NSArray arrayWithArray:changedNumbersTemp];
+}
+
+-(int)getLineFumberFromComponents:(NSString*)component {
+    NSArray *values = [component componentsSeparatedByString:@","];
+    return ABS([values.firstObject intValue]);
+}
+
 -(void)generateStringData {
     
     NSMutableArray *originalTemp = [NSMutableArray new];
     NSMutableArray *changesTemp = [NSMutableArray new];
-    
-//    NSCharacterSet *charSet = [NSCharacterSet characterSetWithCharactersInString:@"@@"];
-//    NSRange range = [self.patch rangeOfCharacterFromSet:charSet];
-//    
-//    if (range.location == NSNotFound) { return; }
-//    
-//    self.changesInfo = [self.patch substringToIndex:range.location];
-//    
-//    NSString *dataStirng = [self.patch substringFromIndex:range.location];
     
     NSArray *components = [self.patch componentsSeparatedByString:@"\n"];
     
