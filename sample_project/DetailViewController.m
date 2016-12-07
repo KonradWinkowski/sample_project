@@ -54,8 +54,8 @@
     self.workingHolder.layer.cornerRadius = 4.0;
     
     self.clearColor = [UIColor clearColor];
-    self.additionsColor = [[UIColor colorWithRed:.675 green:.157 blue:.110 alpha:1.0] colorWithAlphaComponent:0.45];
-    self.deletionsColor = [[UIColor colorWithRed:.596 green:.749 blue:0.0 alpha:1.0] colorWithAlphaComponent:0.45];
+    self.additionsColor = [[UIColor flatLime] colorWithAlphaComponent:0.45];
+    self.deletionsColor = [[UIColor flatRed] colorWithAlphaComponent:0.45];
     
     [self configureView];
     

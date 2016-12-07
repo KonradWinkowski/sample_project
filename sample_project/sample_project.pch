@@ -1,0 +1,17 @@
+//
+//  sample_project.pch
+//  sample_project
+//
+//  Created by Konrad Winkowski on 12/7/16.
+//  Copyright © 2016 Konrad Winkowski. All rights reserved.
+//
+
+#ifndef sample_project_pch
+#define sample_project_pch
+
+#import "UIColor+CustomColors.h"
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif /* sample_project_pch */

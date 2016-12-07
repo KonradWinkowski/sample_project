@@ -27,7 +27,7 @@
     [super setSelected:selected animated:animated];
 
     if (selected) {
-        self.contentView.backgroundColor = [UIColor colorWithRed:.478 green:.373 blue:.286 alpha:1.0];
+        self.contentView.backgroundColor = [UIColor flatCoffeeDark];
     } else {
         self.contentView.backgroundColor = [UIColor clearColor];
     }
@@ -37,7 +37,7 @@
     self.titleLabel.text = @"";
     self.detailLabel.text = @"";
     
-    self.statusIndicatorView.backgroundColor = [UIColor colorWithRed:.675 green:.157 blue:.110 alpha:1.0];
+    self.statusIndicatorView.backgroundColor = [UIColor flatRed];
 }
 
 - (void)setupCellInfo {
@@ -45,11 +45,11 @@
     
     switch (self.pullRequest.state) {
         case Request_State_Open:
-            self.statusIndicatorView.backgroundColor = [UIColor colorWithRed:.596 green:.749 blue:0.0 alpha:1.0];
+            self.statusIndicatorView.backgroundColor = [UIColor flatLime];
             break;
         case Request_State_Closed:
         default:
-            self.statusIndicatorView.backgroundColor = [UIColor colorWithRed:.675 green:.157 blue:.110 alpha:1.0];
+            self.statusIndicatorView.backgroundColor = [UIColor flatRed];
             break;
     }
     
@@ -74,7 +74,7 @@
     if (dayComponents.day == 1) {
         [tempString appendString:@" opened 1 day ago by "];
     } else {
-        [tempString appendString:[NSString stringWithFormat:@" opened %d days ago by ", dayComponents.day]];
+        [tempString appendString:[NSString stringWithFormat:@" opened %ld days ago by ", (long)dayComponents.day]];
     }
     
     [tempString appendString:self.pullRequest.userName];

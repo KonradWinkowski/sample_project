@@ -25,6 +25,7 @@
 		FC7CC4021DF604B80056F710 /* CustomNavigationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FC7CC4011DF604B80056F710 /* CustomNavigationViewController.m */; };
 		FC7CC4061DF607A90056F710 /* GitHubDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = FC7CC4051DF607A90056F710 /* GitHubDataManager.m */; };
 		FC7CC4091DF6FE4F0056F710 /* FileItem.m in Sources */ = {isa = PBXBuildFile; fileRef = FC7CC4081DF6FE4F0056F710 /* FileItem.m */; };
+		FC7CC40D1DF84BC70056F710 /* UIColor+CustomColors.m in Sources */ = {isa = PBXBuildFile; fileRef = FC7CC40C1DF84BC70056F710 /* UIColor+CustomColors.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		71FF218E1DF79CF0007BA701 /* CustomLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomLabel.m; path = Utility/CustomLabel/CustomLabel.m; sourceTree = "<group>"; };
 		71FF219C1DF7A7CA007BA701 /* FileChangesHeaderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileChangesHeaderTableViewCell.h; path = "File Changes/Header/FileChangesHeaderTableViewCell.h"; sourceTree = "<group>"; };
 		71FF219D1DF7A7CA007BA701 /* FileChangesHeaderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FileChangesHeaderTableViewCell.m; path = "File Changes/Header/FileChangesHeaderTableViewCell.m"; sourceTree = "<group>"; };
+		FC4DD1261DF8539D007F9A5B /* sample_project.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sample_project.pch; sourceTree = "<group>"; };
 		FC7CC3D31DF601440056F710 /* sample_project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sample_project.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC7CC3D71DF601440056F710 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		FC7CC3D91DF601440056F710 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -62,6 +64,8 @@
 		FC7CC4051DF607A90056F710 /* GitHubDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GitHubDataManager.m; path = "Pull Request/Model/GitHubDataManager.m"; sourceTree = "<group>"; };
 		FC7CC4071DF6FE4F0056F710 /* FileItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileItem.h; path = "Pull Request/Objects/FileItem.h"; sourceTree = "<group>"; };
 		FC7CC4081DF6FE4F0056F710 /* FileItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FileItem.m; path = "Pull Request/Objects/FileItem.m"; sourceTree = "<group>"; };
+		FC7CC40B1DF84BC70056F710 /* UIColor+CustomColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+CustomColors.h"; path = "Utility/Color/UIColor+CustomColors.h"; sourceTree = "<group>"; };
+		FC7CC40C1DF84BC70056F710 /* UIColor+CustomColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+CustomColors.m"; path = "Utility/Color/UIColor+CustomColors.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,6 +161,7 @@
 				FC7CC3E71DF601440056F710 /* LaunchScreen.storyboard */,
 				FC7CC3EA1DF601450056F710 /* Info.plist */,
 				FC7CC3D61DF601440056F710 /* Supporting Files */,
+				FC4DD1261DF8539D007F9A5B /* sample_project.pch */,
 			);
 			path = sample_project;
 			sourceTree = "<group>";
@@ -191,6 +196,7 @@
 		FC7CC3F61DF601D50056F710 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				FC7CC40A1DF84B820056F710 /* Color */,
 				71FF218C1DF79CCE007BA701 /* CustomLabel */,
 				FC7CC3FF1DF6048A0056F710 /* CustomNavigationController */,
 				FC7CC3FB1DF6045E0056F710 /* CustomSplitViewController */,
@@ -235,6 +241,15 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
+		FC7CC40A1DF84B820056F710 /* Color */ = {
+			isa = PBXGroup;
+			children = (
+				FC7CC40B1DF84BC70056F710 /* UIColor+CustomColors.h */,
+				FC7CC40C1DF84BC70056F710 /* UIColor+CustomColors.m */,
+			);
+			name = Color;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -266,7 +281,6 @@
 				TargetAttributes = {
 					FC7CC3D21DF601440056F710 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = 4RZ69PMW2W;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -313,6 +327,7 @@
 				FC7CC4021DF604B80056F710 /* CustomNavigationViewController.m in Sources */,
 				71FF218F1DF79CF0007BA701 /* CustomLabel.m in Sources */,
 				71FF21871DF6563A007BA701 /* Commit.m in Sources */,
+				FC7CC40D1DF84BC70056F710 /* UIColor+CustomColors.m in Sources */,
 				FC7CC4091DF6FE4F0056F710 /* FileItem.m in Sources */,
 				FC7CC3FE1DF604870056F710 /* CustomSplitViewController.m in Sources */,
 				FC7CC4061DF607A90056F710 /* GitHubDataManager.m in Sources */,
@@ -441,7 +456,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 4RZ69PMW2W;
+				DEVELOPMENT_TEAM = "";
+				GCC_PREFIX_HEADER = sample_project/sample_project.pch;
 				INFOPLIST_FILE = sample_project/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -454,7 +470,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 4RZ69PMW2W;
+				DEVELOPMENT_TEAM = "";
+				GCC_PREFIX_HEADER = sample_project/sample_project.pch;
 				INFOPLIST_FILE = sample_project/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

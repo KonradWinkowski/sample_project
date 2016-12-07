@@ -78,12 +78,12 @@
  */
 -(UIRefreshControl*)addPullToRefreshControl {
     UIRefreshControl *control = [[UIRefreshControl alloc] init];
-    [control setBackgroundColor:[UIColor colorWithRed:.478 green:.373 blue:.286 alpha:1.0]];
-    [control setTintColor:[UIColor colorWithRed:.910 green:.925 blue:.933 alpha:1.0]];
+    [control setBackgroundColor:[UIColor flatCoffeeDark]];
+    [control setTintColor:[UIColor flatWhite]];
     [control addTarget:self action:@selector(getDataFromGitHub) forControlEvents:UIControlEventValueChanged];
     
     NSString *title = @"Pull To Refresh";
-    NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:[UIColor colorWithRed:.910 green:.925 blue:.933 alpha:1.0]
+    NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:[UIColor flatWhite]
                                                                 forKey:NSForegroundColorAttributeName];
     NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:attrsDictionary];
     

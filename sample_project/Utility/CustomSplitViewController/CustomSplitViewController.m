@@ -18,8 +18,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:.478 green:.373 blue:.286 alpha:1.0]];
-    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:.910 green:.925 blue:.933 alpha:1.0]}];
+    [[UINavigationBar appearance] setBarTintColor:[UIColor flatCoffeeDark]];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor flatWhite]}];
 }
 
 - (void)didReceiveMemoryWarning {

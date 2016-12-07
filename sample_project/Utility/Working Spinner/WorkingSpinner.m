@@ -68,8 +68,8 @@
     outsideLine.fillColor = [UIColor clearColor].CGColor;
     insdieLine.fillColor = [UIColor clearColor].CGColor;
     
-    outsideLine.strokeColor = [UIColor colorWithRed:.565 green:.455 blue:.357 alpha:1.0].CGColor;
-    insdieLine.strokeColor = [UIColor colorWithRed:.984 green:.78 blue:0.0 alpha:1.0].CGColor;
+    outsideLine.strokeColor = [UIColor flatCoffee].CGColor;
+    insdieLine.strokeColor = [UIColor flatYellow].CGColor;
     
     outsideLine.lineWidth = self.outsideLineWidth;
     insdieLine.lineWidth = self.insideLineWidth;
