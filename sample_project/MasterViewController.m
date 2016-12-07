@@ -9,6 +9,7 @@
 #import "MasterViewController.h"
 #import "DetailViewController.h"
 #import "PullRequestTableViewCell.h"
+#import "PullRequestItem.h"
 #import "GitHubDataManager.h"
 
 #define kCellReuseIdentifier @"pull_request_cell"
@@ -19,7 +20,10 @@
 @property (weak, nonatomic) UIRefreshControl *refreshControl;
 
 @property (strong, nonatomic) GitHubDataManager *dataManager;
+
+@property (strong, nonatomic) NSArray *filteredRequests;
 @property (strong, nonatomic) NSArray *pullRequests;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *pullRequestsSegment;
 
 @end
 
@@ -61,6 +65,12 @@
     }
 }
 
+- (IBAction)didChangeShownPullRequests:(UISegmentedControl *)sender {
+    
+    self.filteredRequests = [self filterPullRequests];
+    [self.tableView reloadData];
+}
+
 #pragma mark - Data 
 
 -(void)getDataFromGitHub {
@@ -99,7 +109,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        PullRequestItem *object = [self.pullRequests objectAtIndex:indexPath.row];
+        PullRequestItem *object = [self.filteredRequests objectAtIndex:indexPath.row];
         DetailViewController *controller = (DetailViewController *)[[segue destinationViewController] topViewController];
         [controller setPullRequestItem:object];
         controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
@@ -116,19 +126,36 @@
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.pullRequests.count;
+    return self.filteredRequests.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     PullRequestTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:kCellReuseIdentifier forIndexPath:indexPath];
     
-    cell.pullRequest = [self.pullRequests objectAtIndex:indexPath.row];
+    cell.pullRequest = [self.filteredRequests objectAtIndex:indexPath.row];
 
     return cell;
 }
 
 #pragma mark - GitHubDelegate 
+
+-(NSArray*)filterPullRequests {
+    
+    if (self.pullRequestsSegment.selectedSegmentIndex == 1) {
+        return self.pullRequests;
+    }
+    
+    NSMutableArray *temp = [NSMutableArray new];
+    
+    for (PullRequestItem *item in self.pullRequests) {
+        if (item.state == Request_State_Open) {
+            [temp addObject:item];
+        }
+    }
+    
+    return  [NSArray arrayWithArray:temp];
+}
 
 - (void)didDownloadLatestPullRequests:(NSArray *)pullRequests {
     
@@ -137,9 +164,12 @@
     }
     
     self.pullRequests = pullRequests;
+    
+    self.filteredRequests = [self filterPullRequests];
+    
     [self.tableView reloadData];
     
-    if (self.pullRequests.count > 0) {
+    if (self.filteredRequests.count > 0) {
         [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
     }
 }
