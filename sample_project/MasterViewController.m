@@ -139,6 +139,10 @@
     
     self.pullRequests = pullRequests;
     [self.tableView reloadData];
+    
+    if (self.pullRequests.count > 0) {
+        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:YES scrollPosition:UITableViewScrollPositionTop];
+    }
 }
 
 - (void)failedToGetLatestPullRequests {

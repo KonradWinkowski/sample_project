@@ -28,7 +28,11 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
-    // Configure the view for the selected state
+    if (selected) {
+        self.contentView.backgroundColor = [UIColor flatCoffeeColorDark];
+    } else {
+        self.contentView.backgroundColor = [UIColor clearColor];
+    }
 }
 
 - (void)prepareForReuse {
