@@ -7,7 +7,6 @@
 //
 
 #import "CustomNavigationViewController.h"
-#import <ChameleonFramework/Chameleon.h>
 
 @interface CustomNavigationViewController ()
 
@@ -17,8 +16,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.hidesNavigationBarHairline = YES;
 }
 
 - (void)didReceiveMemoryWarning {

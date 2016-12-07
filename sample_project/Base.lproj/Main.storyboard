@@ -269,7 +269,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" red="0.47660902142524719" green="0.37373736500740051" blue="0.28653344511985779" alpha="0.25" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.47843137254901957" green="0.37254901960784315" blue="0.28627450980392155" alpha="0.25" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="e8z-qh-TKv" firstAttribute="centerX" secondItem="FgX-db-58c" secondAttribute="centerX" id="WIG-DX-FYq"/>
                                     <constraint firstItem="e8z-qh-TKv" firstAttribute="centerY" secondItem="FgX-db-58c" secondAttribute="centerY" id="hjR-Ch-Ak2"/>

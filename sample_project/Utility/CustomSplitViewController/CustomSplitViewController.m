@@ -7,7 +7,6 @@
 //
 
 #import "CustomSplitViewController.h"
-#import <ChameleonFramework/Chameleon.h>
 
 @interface CustomSplitViewController ()
 
@@ -18,8 +17,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-        
-    [Chameleon setGlobalThemeUsingPrimaryColor:[UIColor flatCoffeeColorDark] withContentStyle:UIContentStyleContrast];
+    
+    [[UINavigationBar appearance] setBarTintColor:[UIColor colorWithRed:.478 green:.373 blue:.286 alpha:1.0]];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor colorWithRed:.910 green:.925 blue:.933 alpha:1.0]}];
 }
 
 - (void)didReceiveMemoryWarning {

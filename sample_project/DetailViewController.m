@@ -13,7 +13,6 @@
 #import "FileItem.h"
 #import "FileChangesTableViewCell.h"
 #import "FileChangesHeaderTableViewCell.h"
-#import <ChameleonFramework/Chameleon.h>
 
 #define kFileChangesCellIdentifier @"file_changes_cell"
 #define kFileChangesHeaderIdentifier @"header_cell"
@@ -55,8 +54,8 @@
     self.workingHolder.layer.cornerRadius = 4.0;
     
     self.clearColor = [UIColor clearColor];
-    self.additionsColor = [[UIColor flatLimeColor] colorWithAlphaComponent:0.45];
-    self.deletionsColor = [[UIColor flatRedColor] colorWithAlphaComponent:0.45];
+    self.additionsColor = [[UIColor colorWithRed:.675 green:.157 blue:.110 alpha:1.0] colorWithAlphaComponent:0.45];
+    self.deletionsColor = [[UIColor colorWithRed:.596 green:.749 blue:0.0 alpha:1.0] colorWithAlphaComponent:0.45];
     
     [self configureView];
     

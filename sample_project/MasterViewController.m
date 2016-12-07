@@ -10,7 +10,6 @@
 #import "DetailViewController.h"
 #import "PullRequestTableViewCell.h"
 #import "GitHubDataManager.h"
-#import <ChameleonFramework/Chameleon.h>
 
 #define kCellReuseIdentifier @"pull_request_cell"
 
@@ -79,12 +78,12 @@
  */
 -(UIRefreshControl*)addPullToRefreshControl {
     UIRefreshControl *control = [[UIRefreshControl alloc] init];
-    [control setBackgroundColor:[UIColor flatCoffeeColorDark]];
-    [control setTintColor:[UIColor flatWhiteColor]];
+    [control setBackgroundColor:[UIColor colorWithRed:.478 green:.373 blue:.286 alpha:1.0]];
+    [control setTintColor:[UIColor colorWithRed:.910 green:.925 blue:.933 alpha:1.0]];
     [control addTarget:self action:@selector(getDataFromGitHub) forControlEvents:UIControlEventValueChanged];
     
     NSString *title = @"Pull To Refresh";
-    NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:[UIColor flatWhiteColor]
+    NSDictionary *attrsDictionary = [NSDictionary dictionaryWithObject:[UIColor colorWithRed:.910 green:.925 blue:.933 alpha:1.0]
                                                                 forKey:NSForegroundColorAttributeName];
     NSAttributedString *attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:attrsDictionary];
     

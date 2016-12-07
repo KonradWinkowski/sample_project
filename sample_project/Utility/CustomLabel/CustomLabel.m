@@ -7,7 +7,6 @@
 //
 
 #import "CustomLabel.h"
-#import <ChameleonFramework/Chameleon.h>
 
 @implementation CustomLabel
 
@@ -15,9 +14,9 @@
     [super setText:text];
     
     if ([text hasPrefix:@"-"]) {
-        self.backgroundColor = [[UIColor flatRedColor] colorWithAlphaComponent:0.45];
+        self.backgroundColor = [[UIColor colorWithRed:.675 green:.157 blue:.110 alpha:1.0] colorWithAlphaComponent:0.45];
     } else if ([text hasPrefix:@"+"]) {
-        self.backgroundColor = [[UIColor flatLimeColor] colorWithAlphaComponent:0.45];
+        self.backgroundColor = [[UIColor colorWithRed:.596 green:.749 blue:0.0 alpha:1.0] colorWithAlphaComponent:0.45];
     } else {
         self.backgroundColor = [UIColor clearColor];
     }

@@ -9,8 +9,6 @@
 #import "PullRequestTableViewCell.h"
 #import "PullRequestItem.h"
 
-#import <ChameleonFramework/Chameleon.h>
-
 #define kCornerRadius 4.0
 
 @implementation PullRequestTableViewCell
@@ -29,7 +27,7 @@
     [super setSelected:selected animated:animated];
 
     if (selected) {
-        self.contentView.backgroundColor = [UIColor flatCoffeeColorDark];
+        self.contentView.backgroundColor = [UIColor colorWithRed:.478 green:.373 blue:.286 alpha:1.0];
     } else {
         self.contentView.backgroundColor = [UIColor clearColor];
     }
@@ -39,7 +37,7 @@
     self.titleLabel.text = @"";
     self.detailLabel.text = @"";
     
-    self.statusIndicatorView.backgroundColor = [UIColor flatRedColor];
+    self.statusIndicatorView.backgroundColor = [UIColor colorWithRed:.675 green:.157 blue:.110 alpha:1.0];
 }
 
 - (void)setupCellInfo {
@@ -47,11 +45,11 @@
     
     switch (self.pullRequest.state) {
         case Request_State_Open:
-            self.statusIndicatorView.backgroundColor = [UIColor flatLimeColor];
+            self.statusIndicatorView.backgroundColor = [UIColor colorWithRed:.596 green:.749 blue:0.0 alpha:1.0];
             break;
         case Request_State_Closed:
         default:
-            self.statusIndicatorView.backgroundColor = [UIColor flatRedColor];
+            self.statusIndicatorView.backgroundColor = [UIColor colorWithRed:.675 green:.157 blue:.110 alpha:1.0];
             break;
     }
     
