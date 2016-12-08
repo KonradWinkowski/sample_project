@@ -47,6 +47,8 @@
     
     self.splitViewController.preferredDisplayMode = UISplitViewControllerDisplayModePrimaryHidden;
     
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    
     self.dataManager = [[GitHubDataManager alloc] init];
     self.dataManager.delegate = self;
     

@@ -26,7 +26,7 @@
     [super setSelected:selected animated:animated];
 
     if (selected) {
-        self.contentView.backgroundColor = [UIColor flatCoffeeDark];
+        self.contentView.backgroundColor = [[UIColor flatCoffeeDark] colorWithAlphaComponent:0.55];
     } else {
         self.contentView.backgroundColor = [UIColor clearColor];
     }
