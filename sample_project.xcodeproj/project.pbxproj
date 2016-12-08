@@ -276,7 +276,6 @@
 				TargetAttributes = {
 					FC7CC3D21DF601440056F710 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = 4RZ69PMW2W;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -451,7 +450,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 4RZ69PMW2W;
+				DEVELOPMENT_TEAM = "";
 				GCC_PREFIX_HEADER = sample_project/sample_project.pch;
 				INFOPLIST_FILE = sample_project/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -465,7 +464,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 4RZ69PMW2W;
+				DEVELOPMENT_TEAM = "";
 				GCC_PREFIX_HEADER = sample_project/sample_project.pch;
 				INFOPLIST_FILE = sample_project/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
