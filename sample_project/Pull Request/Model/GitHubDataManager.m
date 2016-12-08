@@ -18,18 +18,11 @@
 
 @implementation GitHubDataManager
 
-+(GitHubDataManager*)manager {
-    static id instance;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        instance = [[GitHubDataManager alloc] init];
-    });
-    return instance;
-}
+#pragma mark - Data Ready / Failed
 
 -(void)failedToGetData {
     if (self.delegate) {
-        [self.delegate failedToGetLatestPullRequests];
+        [self.delegate failedToGetLatestGitHubData];
     }
 }
 
@@ -47,58 +40,23 @@
     
 }
 
-//-(void)downloadCommitInfoFor:(NSArray*)data toCommits:(NSMutableArray*)commits {
-//    
-//    if (data.count == 0) {
-//        [self finishedReceivingCommitInformation:commits];
-//        return;
-//    }
-//    
-//    NSURL *commitURL = data.firstObject;
-//    __weak typeof(self) weakself = self;
-//    
-//    [self getFullCommitItemInfoForURL:commitURL withCompletion:^(BOOL result, Commit *item) {
-//        
-//        if (result) {
-//            NSMutableArray *newData = [data mutableCopy];
-//            [newData removeObjectAtIndex:0];
-//            
-//            [commits addObject:item];
-//            
-//            [weakself downloadCommitInfoFor:[NSArray arrayWithArray:newData] toCommits:commits];
-//        } else {
-//            [weakself failedToGetData];
-//        }
-//        
-//    }];
-//}
+#pragma mark - Network Calls 
 
-//-(void)getFullCommitItemInfoForURL:(NSURL*)commitURL withCompletion:(void (^)(BOOL result, Commit *item))completion{
-//        
-//    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
-//    
-//    NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: defaultConfigObject delegate: self delegateQueue: [NSOperationQueue mainQueue]];
-//    
-//    NSURLSessionDataTask * dataTask = [defaultSession dataTaskWithURL:commitURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
-//    {
-//        NSLog(@"%@", response);
-//        if (error) {
-//            completion(NO, nil);
-//        } else {
-//            
-//            NSError *error;
-//            NSDictionary *commitInfo = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
-//            
-//            if (error) {
-//                completion(NO, nil);
-//            } else {
-//                completion(YES, [Commit commitFromData:commitInfo]);
-//            }
-//        }
-//    }];
-//    
-//    [dataTask resume];
-//}
+-(void)getPullRequests {
+    
+    NSAssert(self.delegate, @"A Delegate is Required for this object!");
+    
+    __weak typeof(self) weakself = self;
+    
+    [self performFetchRequestToURL:[NSURL URLWithString:kPullRequestsURL] withCompletion:^(BOOL result, NSData *data) {
+        if (result) {
+            [weakself parseArrayOfRawPullRequests:[weakself parseResponsData:data]];
+        } else {
+            [weakself failedToGetData];
+        }
+    }];
+    
+}
 
 -(void)getFilesInfo:(NSURL*)filesURL {
     
@@ -106,46 +64,34 @@
     
     __weak typeof(self) weakself = self;
     
-    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
-    
-    NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: defaultConfigObject delegate: self delegateQueue: [NSOperationQueue mainQueue]];
-    
-    NSURLSessionDataTask * dataTask = [defaultSession dataTaskWithURL:filesURL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
-    {
-        NSLog(@"%@", response);
-        if (error) {
-            [weakself failedToGetData];
-        } else {
+    [self performFetchRequestToURL:filesURL withCompletion:^(BOOL result, NSData *data) {
+        
+        if (result) {
             [weakself parseArrayOfRawFiles:[weakself parseResponsData:data]];
+        } else {
+            [weakself failedToGetData];
         }
+        
     }];
     
-    [dataTask resume];
-    
 }
 
--(void)updatePullRequests {
-    
-    NSAssert(self.delegate, @"A Delegate is Required for this object!");
-    
-    [self downloadPullRequests];
-}
-
--(void)downloadPullRequests {
- 
-    __weak typeof(self) weakself = self;
+/*
+ * Reusable fetch request call to go out and get the data from the provided URL. 
+ * Will call the completion block (if it is there) with the reuslts and data.
+ */
+-(void)performFetchRequestToURL:(NSURL*)url withCompletion:(void (^)(BOOL result, NSData *data))completion {
     
     NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
     
     NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: defaultConfigObject delegate: self delegateQueue: [NSOperationQueue mainQueue]];
     
-    NSURLSessionDataTask * dataTask = [defaultSession dataTaskWithURL:[NSURL URLWithString:kPullRequestsURL] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
+    NSURLSessionDataTask * dataTask = [defaultSession dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error)
     {
-        NSLog(@"%@", response);
-        if (error) {
-            [weakself failedToGetData];
-        } else {
-            [weakself parseArrayOfRawItems:[weakself parseResponsData:data]];
+        if (error && completion) {
+            completion(NO, nil);
+        } else if (completion) {
+            completion(YES, data);
         }
     }];
     
@@ -153,6 +99,12 @@
     
 }
 
+#pragma mark - Parsers
+
+/*
+ * Since we know that the values we are requesting always return a NSArray from the JSON data.
+ * We can safely reutrn an array ( or nil ) from the json data.
+ */
 -(NSArray*)parseResponsData:(NSData*)data {
     
     NSError *error;
@@ -166,6 +118,10 @@
     return items;
 }
 
+/*
+ * Files from the GitHub api is just an array of dictionarys that contain the data with the file changes. This is what we'll use to get the data to display the 
+ * side by side view.
+ */
 -(void)parseArrayOfRawFiles:(NSArray*)items {
     
     if (!items) { return; }
@@ -180,19 +136,11 @@
     
 }
 
-//-(void)parseArrayOfRawCommits:(NSArray*)items {
-//    
-//    NSMutableArray *temp = [NSMutableArray new];
-//    
-//    for (NSDictionary *item in items) {
-//        [temp addObject:[NSURL URLWithString:[item objectForKey:@"url"]]];
-//    }
-//    
-//    [self downloadCommitInfoFor:[NSArray arrayWithArray:temp] toCommits:[NSMutableArray new]];
-//    
-//}
-
--(void)parseArrayOfRawItems:(NSArray*)items {
+/*
+ * This is what we use to get the data to populate the avaiable "Pull Requests". The items feed in are just NSDictinarys that contain
+ * the data that we need to get all of the info about the pull and to get the changed files with that pull request.
+ */
+-(void)parseArrayOfRawPullRequests:(NSArray*)items {
     
     if (!items) { return; }
     

@@ -5,6 +5,7 @@
 //  Created by Konrad Winkowski on 12/5/16.
 //  Copyright © 2016 Konrad Winkowski. All rights reserved.
 //
+//  Custom Split Controller to give me more control over how the UI will look.
 
 #import "CustomSplitViewController.h"
 
@@ -18,6 +19,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    // Seting global themes // 
     [[UINavigationBar appearance] setBarTintColor:[UIColor flatCoffeeDark]];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor flatWhite]}];
 }

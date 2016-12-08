@@ -5,6 +5,8 @@
 //  Created by Konrad Winkowski on 12/5/16.
 //  Copyright © 2016 Konrad Winkowski. All rights reserved.
 //
+//  This class holds all of the data that we'll need to display to the user information about the pull request.
+//  It also has the URL we'll need to get the 'Files' data which is what we use to show the changes in the pull request
 
 #import <Foundation/Foundation.h>
 

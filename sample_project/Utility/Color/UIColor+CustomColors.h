@@ -5,6 +5,7 @@
 //  Created by Konrad Winkowski on 12/7/16.
 //  Copyright © 2016 Konrad Winkowski. All rights reserved.
 //
+//  Utility class to easily use custom 'Flat' UI colors.
 
 #import <UIKit/UIKit.h>
 

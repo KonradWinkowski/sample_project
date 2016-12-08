@@ -76,7 +76,7 @@
 -(void)getDataFromGitHub {
         
     if (self.dataManager) {
-        [self.dataManager updatePullRequests];
+        [self.dataManager getPullRequests];
     }
     
 }
@@ -174,11 +174,15 @@
     }
 }
 
-- (void)failedToGetLatestPullRequests {
+- (void)failedToGetLatestGitHubData {
     
     if (self.refreshControl) {
         [self.refreshControl endRefreshing];
     }
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Failed to get pull requests!" preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDestructive handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
     
 }
 

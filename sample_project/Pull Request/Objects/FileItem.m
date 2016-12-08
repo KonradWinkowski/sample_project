@@ -26,11 +26,12 @@
 
 -(instancetype)initWithData:(NSDictionary*)data {
     if (self = [super init]) {
-        [self parseOutBaseInfo:data];
         
-        [self generateStringData];
+        [self parseOutBaseInfo:data]; // Get / Set basic info about the File change //
         
-        [self generateLineNumbers];
+        [self generateStringData]; // Generates the equal arrays of strings //
+        
+        [self generateLineNumbers]; // Generates the line numbers accociated with the file changes //
     }
     return self;
 }
@@ -48,76 +49,78 @@
     
 }
 
+#pragma mark - Line Number Generator
+
 -(void)generateLineNumbers {
+    
+    self.originalStartingLineStrings = [self generateLineNumberFromArray:self.origianStrings andLineSkipIndex:1];
+    
+    self.changedStartingLineStrings = [self generateLineNumberFromArray:self.changedStrings andLineSkipIndex:2];
+    
+}
+
+/*
+ * This method does the heavy lifting for generating the line numbers for each of the string arrays 
+ * Based in the data provided we know the starting line number of each array.
+ * Using that and checking againts my own "blank string" we can easily generate a line number string
+ * This also takes into account line skips in the stirngs. If one of our data strings starts with '@@' 
+ * we know that GitHub put that there to indicate a line skip. so we parse that out and set that to our line number 
+ * this gives us nice clean skips whenever they occur.
+ */
+- (NSArray*)generateLineNumberFromArray:(NSArray*)array andLineSkipIndex:(int)lineSkipIndex {
     
     NSArray *components = [self.changesInfo componentsSeparatedByString:@" "];
     
-    if (components.count == 0) { return; }
+    if (components.count == 0) { return @[]; }
     
-    int originalStart = [self getLineFumberFromComponents:[components objectAtIndex:1]];
+    int startIndex = [self getLineFumberFromComponents:[components objectAtIndex:lineSkipIndex]];
     
-    NSMutableArray *originalNumbersTemp = [NSMutableArray new];
+    NSMutableArray *numbersTemp = [NSMutableArray new];
     
-    for (int i = 0; i < self.origianStrings.count; i++) {
+    for (int i = 0; i < array.count; i++) {
         
-        NSString *stringToValidate = [self.origianStrings objectAtIndex:i];
-        
-        if ([stringToValidate hasPrefix:@"@@"]) {
-            NSArray *components = [stringToValidate componentsSeparatedByString:@" "];
-            
-            if (components.count == 0) { continue; }
-            
-            int skipValue = [self getLineFumberFromComponents:[components objectAtIndex:1]];
-            
-            originalStart = skipValue;
-            [originalNumbersTemp addObject:@" "];
-            
-        } else if ([stringToValidate isEqualToString:KEMPTYSPACESTRING] == NO) {
-            [originalNumbersTemp addObject:[NSString stringWithFormat:@"%d", originalStart]];
-            originalStart++;
-        } else {
-            [originalNumbersTemp addObject:@" "];
-        }
-        
-    }
-    
-    self.originalStartingLineStrings = [NSArray arrayWithArray:originalNumbersTemp];
-    
-    int changedStart = [self getLineFumberFromComponents:[components objectAtIndex:2]];
-    
-    NSMutableArray *changedNumbersTemp = [NSMutableArray new];
-    
-    for (int i = 0; i < self.changedStrings.count; i++) {
-        
-        NSString *stringToValidate = [self.changedStrings objectAtIndex:i];
+        NSString *stringToValidate = [array objectAtIndex:i];
         
         if ([stringToValidate hasPrefix:@"@@"]) {
             NSArray *components = [stringToValidate componentsSeparatedByString:@" "];
             
             if (components.count == 0) { continue; }
             
-            int skipValue = [self getLineFumberFromComponents:[components objectAtIndex:2]];
+            int skipValue = [self getLineFumberFromComponents:[components objectAtIndex:lineSkipIndex]];
             
-            changedStart = skipValue;
-            [changedNumbersTemp addObject:@" "];
+            startIndex = skipValue;
+            [numbersTemp addObject:@" "];
             
         } else if ([stringToValidate isEqualToString:KEMPTYSPACESTRING] == NO) {
-            [changedNumbersTemp addObject:[NSString stringWithFormat:@"%d", changedStart]];
-            changedStart++;
+            [numbersTemp addObject:[NSString stringWithFormat:@"%d", startIndex]];
+            startIndex++;
         } else {
-            [changedNumbersTemp addObject:@" "];
+            [numbersTemp addObject:@" "];
         }
         
     }
+
+    return [NSArray arrayWithArray:numbersTemp];
     
-    self.changedStartingLineStrings = [NSArray arrayWithArray:changedNumbersTemp];
 }
 
+/*
+ * Since we know that the data passed in will always be ##,## (starting line number , addition/deletion) we can easily parse out the first number to get our starting line number
+ */
 -(int)getLineFumberFromComponents:(NSString*)component {
     NSArray *values = [component componentsSeparatedByString:@","];
     return ABS([values.firstObject intValue]);
 }
 
+#pragma mark - File Strings Generator
+
+/*
+ * This method starts the generation of the two original/changed string arrays.
+ * Since we know for a fact that a line starting with '-' is a deletion we can put it in the origianl array
+ * and a line staring with '+' we can put in the additions column.
+ * Anything else gets added to both columns as there are no changes and both sides should show the same stirng.
+ * Once that is done, we start the recursion to make the two arrays equal and fill in any blanks that may be there
+ */
 -(void)generateStringData {
     
     NSMutableArray *originalTemp = [NSMutableArray new];
@@ -151,6 +154,12 @@
     [self fillInBlankSpaces];
 }
 
+/*
+ * This is the recursive method that fills in the "empty space" strings to easily display them on a table view 
+ * Each time it is called it checks to see if the two arrays are of equal item count. If they are the recursion ends.
+ * If they are not we do string comparison and add a empty line to fill in the gaps in the array. Once we find a spot
+ * to add a empty string we break out of the for loop and continue the recursion.
+ */
 - (void)fillInBlankSpaces {
     
     if (self.origianStrings.count == self.changedStrings.count) {
@@ -172,6 +181,7 @@
             original_string = [self.origianStrings objectAtIndex:i];
         }
         
+        // if one array is smaller then the other and we are at the end of the other array we just add an empty string till they even out //
         if (!original_string) {
             [original_copy insertObject:KEMPTYSPACESTRING atIndex:original_copy.count];
             break;

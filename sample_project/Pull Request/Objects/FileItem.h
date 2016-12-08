@@ -5,6 +5,9 @@
 //  Created by Konrad Winkowski on 12/6/16.
 //  Copyright © 2016 Konrad Winkowski. All rights reserved.
 //
+//  This class hold all of the data needed to display the side by side view of the file changes.
+//  Once key data is set it will parse out the neccessary data to create equal arrays of data to
+//  easily display that information in a table view. 
 
 #import <Foundation/Foundation.h>
 

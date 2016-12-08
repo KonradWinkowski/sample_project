@@ -22,8 +22,6 @@
     if (hairlineImageView) {
         hairlineImageView.hidden = YES;
     }
-
-    
 }
 
 - (void)didReceiveMemoryWarning {

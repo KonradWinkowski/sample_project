@@ -5,6 +5,7 @@
 //  Created by Konrad Winkowski on 12/5/16.
 //  Copyright © 2016 Konrad Winkowski. All rights reserved.
 //
+//  Simple / Customiable spinner to indicate to the user that the app is working
 
 #import <UIKit/UIKit.h>
 

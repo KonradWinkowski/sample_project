@@ -17,8 +17,9 @@
 /*
  * Goes out to the GitHub REST API and grabs the latest Pull Requests for 'MagicalRecord'
  * Will call delegate methods depending on success or failure
+ * NOTE: since the URL is hard coded in the implementation file we dont need to pass in the URL to go out to
  */
--(void)updatePullRequests;
+-(void)getPullRequests;
 
 /*
  * Goes out to the GitHub REST API and grabs the files info for the provided URL 
@@ -45,6 +46,6 @@
 /*
  * Gets called when any error occurs. Delegates should inform UI that something went wrong....
  */
--(void)failedToGetLatestPullRequests;
+-(void)failedToGetLatestGitHubData;
 
 @end

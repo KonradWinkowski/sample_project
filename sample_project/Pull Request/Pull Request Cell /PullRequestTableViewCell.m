@@ -15,7 +15,6 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
     
     self.shadowView.layer.cornerRadius = kCornerRadius;
     self.containerView.layer.cornerRadius = kCornerRadius;
@@ -56,6 +55,9 @@
     [self generateDetailLabel];
 }
 
+/*
+ * Generates a nice detail label kind of like the one on GitHub to show when the pull request was originally opened 
+ */
 - (void)generateDetailLabel {
     
     NSCalendar *calendar = [NSCalendar currentCalendar];

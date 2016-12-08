@@ -35,10 +35,10 @@
 
 -(void)parseOutData:(NSDictionary*)data {
     
-    [self parseOutBaseInfo:data]; // gets the basic info about the pull request
-    [self parseOutStateInfo:data]; // gets and sets the state of the pull request
-    [self parseOutUserName:data]; // gets and sets the username tied to the pull request
-    [self parseOutCommitURL:data]; // gets and sets the commits url for the pull request
+    [self parseOutBaseInfo:data];   // gets the basic info about the pull request
+    [self parseOutStateInfo:data];  // gets and sets the state of the pull request
+    [self parseOutUserName:data];   // gets and sets the username tied to the pull request
+    [self parseOutCommitURL:data];  // gets and sets the commits url for the pull request
 }
 
 -(void)parseOutBaseInfo:(NSDictionary*)data {
@@ -71,6 +71,7 @@
     
     NSString *selfURL = [selfInfo objectForKey:kHrefKey];
     
+    // GET /repos/:owner/:repo/pulls/:number/files //
     self.filesURL = [NSURL URLWithString:[NSString stringWithFormat:@"%@/files", selfURL]];
 }
 

@@ -112,12 +112,16 @@
 
 #pragma mark - Git Hub Data Manager 
 
-- (void)failedToGetLatestPullRequests {
+- (void)failedToGetLatestGitHubData {
+    [self hideWorkingPopover];
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Failed to get file changes!" preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDestructive handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
     
 }
 
 - (void)didDownloadLatestFilesInformation:(NSArray *)commits {
-    NSLog(@"%@", commits);
     [self hideWorkingPopover];
     self.commits = commits;
     [self.tableView reloadData];

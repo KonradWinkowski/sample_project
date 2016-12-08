@@ -5,6 +5,7 @@
 //  Created by Konrad Winkowski on 12/5/16.
 //  Copyright © 2016 Konrad Winkowski. All rights reserved.
 //
+//  Simple cell for displaying pull requests. 
 
 #import <UIKit/UIKit.h>
 

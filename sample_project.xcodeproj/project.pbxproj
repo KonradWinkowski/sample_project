@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		71FF215E1DF641CC007BA701 /* PullRequestItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FF215D1DF641CC007BA701 /* PullRequestItem.m */; };
-		71FF21871DF6563A007BA701 /* Commit.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FF21861DF6563A007BA701 /* Commit.m */; };
 		71FF218B1DF79461007BA701 /* FileChangesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FF218A1DF79461007BA701 /* FileChangesTableViewCell.m */; };
 		71FF218F1DF79CF0007BA701 /* CustomLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FF218E1DF79CF0007BA701 /* CustomLabel.m */; };
 		71FF219E1DF7A7CA007BA701 /* FileChangesHeaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 71FF219D1DF7A7CA007BA701 /* FileChangesHeaderTableViewCell.m */; };
@@ -31,8 +30,6 @@
 /* Begin PBXFileReference section */
 		71FF215C1DF641CC007BA701 /* PullRequestItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PullRequestItem.h; path = "Pull Request/Objects/PullRequestItem.h"; sourceTree = "<group>"; };
 		71FF215D1DF641CC007BA701 /* PullRequestItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PullRequestItem.m; path = "Pull Request/Objects/PullRequestItem.m"; sourceTree = "<group>"; };
-		71FF21851DF6563A007BA701 /* Commit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Commit.h; path = "Pull Request/Objects/Commit.h"; sourceTree = "<group>"; };
-		71FF21861DF6563A007BA701 /* Commit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Commit.m; path = "Pull Request/Objects/Commit.m"; sourceTree = "<group>"; };
 		71FF21891DF79461007BA701 /* FileChangesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FileChangesTableViewCell.h; path = "File Changes/FileChangesTableViewCell.h"; sourceTree = "<group>"; };
 		71FF218A1DF79461007BA701 /* FileChangesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FileChangesTableViewCell.m; path = "File Changes/FileChangesTableViewCell.m"; sourceTree = "<group>"; };
 		71FF218D1DF79CF0007BA701 /* CustomLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CustomLabel.h; path = Utility/CustomLabel/CustomLabel.h; sourceTree = "<group>"; };
@@ -91,8 +88,6 @@
 			children = (
 				71FF215C1DF641CC007BA701 /* PullRequestItem.h */,
 				71FF215D1DF641CC007BA701 /* PullRequestItem.m */,
-				71FF21851DF6563A007BA701 /* Commit.h */,
-				71FF21861DF6563A007BA701 /* Commit.m */,
 				FC7CC4071DF6FE4F0056F710 /* FileItem.h */,
 				FC7CC4081DF6FE4F0056F710 /* FileItem.m */,
 			);
@@ -281,6 +276,7 @@
 				TargetAttributes = {
 					FC7CC3D21DF601440056F710 = {
 						CreatedOnToolsVersion = 8.1;
+						DevelopmentTeam = 4RZ69PMW2W;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -326,7 +322,6 @@
 				FC7CC3DE1DF601440056F710 /* MasterViewController.m in Sources */,
 				FC7CC4021DF604B80056F710 /* CustomNavigationViewController.m in Sources */,
 				71FF218F1DF79CF0007BA701 /* CustomLabel.m in Sources */,
-				71FF21871DF6563A007BA701 /* Commit.m in Sources */,
 				FC7CC40D1DF84BC70056F710 /* UIColor+CustomColors.m in Sources */,
 				FC7CC4091DF6FE4F0056F710 /* FileItem.m in Sources */,
 				FC7CC3FE1DF604870056F710 /* CustomSplitViewController.m in Sources */,
@@ -456,7 +451,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 4RZ69PMW2W;
 				GCC_PREFIX_HEADER = sample_project/sample_project.pch;
 				INFOPLIST_FILE = sample_project/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -470,7 +465,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 4RZ69PMW2W;
 				GCC_PREFIX_HEADER = sample_project/sample_project.pch;
 				INFOPLIST_FILE = sample_project/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
